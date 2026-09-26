@@ -1,0 +1,9 @@
+{
+  "name": "benign-example",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "postinstall": "node ./scripts/print-banner.js",
+    "test": "echo \"no tests\""
+  }
+}

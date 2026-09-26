@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pkgguard"
+version = "0.1.0"
+description = "Static behavioral scanner for npm/PyPI package contents - catches malicious install-time code, not just known-bad manifest entries."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+dependencies = []
+
+[project.scripts]
+pkgguard = "pkgguard.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
