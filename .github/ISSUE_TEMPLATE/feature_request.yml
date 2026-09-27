@@ -1,0 +1,19 @@
+name: Feature request
+description: Suggest a new detection rule, ecosystem, output format or CLI option.
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem would this solve?
+      description: For new detection rules, describe the malicious behavior and, if you can, link to a public write-up of a real incident that used it.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered

@@ -1,0 +1,50 @@
+name: Detection issue (false positive / false negative)
+description: pkgguard flagged something benign, or missed something malicious.
+labels: ["detection"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the report! If you've found a way to make pkgguard *itself* unsafe
+        to run (an extraction escape, code execution, a crash or hang), please use
+        the [private security report](https://github.com/KhanSaahib/pkgguard/security/advisories/new) instead.
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Kind
+      options:
+        - False positive (flagged benign code)
+        - False negative (missed malicious behavior)
+    validations:
+      required: true
+  - type: input
+    id: package
+    attributes:
+      label: Package and version
+      description: e.g. `left-pad@1.3.0` or `requests==2.32.3`. Leave blank if you're providing a snippet instead.
+  - type: input
+    id: rule
+    attributes:
+      label: Rule ID
+      description: The rule that fired (false positive) or that you expected to fire (false negative).
+      placeholder: SECRET_EXFIL_CHAIN
+  - type: textarea
+    id: snippet
+    attributes:
+      label: Minimal reproduction
+      description: The smallest code snippet or package layout that shows the problem. For malicious samples, keep it inert (use `.test` domains, no working payloads).
+      render: javascript
+    validations:
+      required: true
+  - type: textarea
+    id: output
+    attributes:
+      label: pkgguard output
+      render: text
+  - type: input
+    id: version
+    attributes:
+      label: pkgguard version
+      placeholder: output of `pkgguard --version`
+    validations:
+      required: true

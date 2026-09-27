@@ -1,0 +1,38 @@
+name: Bug report
+description: pkgguard crashed, errored, or behaved differently than documented.
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        For missed or wrongly flagged patterns, use the **Detection issue** template instead.
+        Security problems in pkgguard itself should be [reported privately](https://github.com/KhanSaahib/pkgguard/security/advisories/new).
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What you ran, what you expected, and what happened instead.
+    validations:
+      required: true
+  - type: textarea
+    id: output
+    attributes:
+      label: Command and output
+      description: Include the full command line and any traceback.
+      render: text
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: pkgguard version
+      placeholder: output of `pkgguard --version`
+    validations:
+      required: true
+  - type: input
+    id: env
+    attributes:
+      label: Python version and OS
+      placeholder: Python 3.12.4 on Ubuntu 24.04
+    validations:
+      required: true
