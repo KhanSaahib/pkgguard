@@ -59,7 +59,9 @@ _NODE_INLINE_EVAL = re.compile(r"node\s+(-e|--eval)\s", re.IGNORECASE)
 
 def scan_lifecycle_scripts(scripts: dict, file_label: str) -> list[Finding]:
     findings: list[Finding] = []
-    for key, cmd in (scripts or {}).items():
+    if not isinstance(scripts, dict):
+        return findings
+    for key, cmd in scripts.items():
         if key not in LIFECYCLE_SCRIPT_KEYS or not isinstance(cmd, str):
             continue
         if _SHELL_DOWNLOAD_EXEC.search(cmd):
@@ -117,25 +119,31 @@ _OBFUSCATION_DECODE_CHAIN = re.compile(
     r"(atob|Buffer\.from\([^)]*['\"]base64['\"]\)|base64\.b64decode)\s*\("
 )
 
+_NODE_NET_MODULE = r"['\"](?:node:)?(?:https?|http2|net|tls|dgram)['\"]"
 _NETWORK_JS = re.compile(
-    r"require\(['\"]https?['\"]\)|fetch\s*\(|axios\.(get|post)\s*\(|"
-    r"new\s+XMLHttpRequest\s*\(|net\.connect\s*\("
+    r"\brequire\(\s*" + _NODE_NET_MODULE + r"\s*\)"
+    r"|\bfrom\s+" + _NODE_NET_MODULE
+    + r"|\bimport\(\s*" + _NODE_NET_MODULE + r"\s*\)"
+    r"|\bfetch\s*\(|\baxios(?:\.(?:get|post|put|patch|request))?\s*\("
+    r"|\bnew\s+(?:XMLHttpRequest|WebSocket)\s*\(|\bnet\.connect\s*\("
 )
 _NETWORK_PY = re.compile(
-    r"requests\.(get|post)\s*\(|urllib\.request\.urlopen\s*\(|socket\.socket\s*\("
+    r"\brequests\.(?:get|post|put|patch|request)\s*\("
+    r"|\burlopen\s*\("
+    r"|\bHTTPS?Connection\s*\("
+    r"|\b(?:httpx|urllib3|aiohttp)\.\w+\s*\("
+    r"|\bsocket\.(?:socket|create_connection)\s*\("
 )
 
 _SHELL_EXEC_JS = re.compile(
-    r"require\(['\"]child_process['\"]\).*?\.(exec|execSync|spawn)\s*\("
+    r"require\(['\"](?:node:)?child_process['\"]\).*?\.(exec|execSync|spawn)\s*\("
     r"|\.(exec|execSync)\s*\("
 )
 _SHELL_EXEC_PY = re.compile(
     r"os\.system\s*\(|subprocess\.(Popen|call|run|check_output)\s*\([^)]*shell\s*=\s*True"
 )
 
-_WORM_WRITE_NODE_MODULES = re.compile(
-    r"writeFileSync\s*\([^)]*node_modules(?!/pkgguard)"
-)
+_WORM_WRITE_NODE_MODULES = re.compile(r"writeFileSync\s*\([^)]*node_modules")
 _WORM_NPM_PUBLISH = re.compile(r"npm(-cli\.js)?\s+publish\b")
 
 

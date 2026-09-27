@@ -9,11 +9,8 @@ _SEVERITY_ORDER = ("CRITICAL", "HIGH", "MEDIUM", "LOW", "INFO")
 def render_text(report: ScanReport) -> str:
     lines = [f"pkgguard scan: {report.target}", f"verdict: {report.verdict}", ""]
     counts = report.severity_counts
-    lines.append(
-        "summary: "
-        + ", ".join(f"{k.lower()}={counts[k]}" for k in _SEVERITY_ORDER if counts[k])
-        or "summary: no findings"
-    )
+    parts = [f"{k.lower()}={counts[k]}" for k in _SEVERITY_ORDER if counts[k]]
+    lines.append("summary: " + (", ".join(parts) if parts else "no findings"))
     lines.append("")
     for f in report.findings:
         lines.append(f"[{f.severity.name}] {f.rule_id} - {f.file}:{f.line}")
