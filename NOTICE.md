@@ -24,10 +24,3 @@ for transparency even though nothing was copied from them.
 - Idea drawn from it (not code): the general framing of analyzing a
   package's *install-time behavior* (not just its published metadata) as a
   first-class supply-chain security signal.
-
-## Naming inspiration
-
-The `depguard` / `iamguard` / `iacguard` / `k8sguard` / `dockerguard` naming
-and "offline, dependency-free static scanner" design convention follows the
-existing sibling tools in https://github.com/KhanSaahib/blue-forge (own
-prior work, MIT licensed).

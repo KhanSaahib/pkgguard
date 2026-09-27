@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Report a security vulnerability in pkgguard
+    url: https://github.com/KhanSaahib/pkgguard/security/advisories/new
+    about: Please report extraction escapes, code execution, crashes or hangs privately.

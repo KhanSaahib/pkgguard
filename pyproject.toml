@@ -1,18 +1,56 @@
 [build-system]
-requires = ["setuptools>=68"]
+requires = ["setuptools>=77"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "pkgguard"
-version = "0.1.0"
-description = "Static behavioral scanner for npm/PyPI package contents - catches malicious install-time code, not just known-bad manifest entries."
+dynamic = ["version"]
+description = "Offline, dependency-free static scanner that catches malicious install-time behavior in npm and PyPI packages before you install them."
 readme = "README.md"
 requires-python = ">=3.10"
-license = { text = "MIT" }
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "KhanSaahib" }]
+keywords = [
+  "supply-chain-security",
+  "npm",
+  "pypi",
+  "malware-detection",
+  "static-analysis",
+  "devsecops",
+  "security",
+]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Environment :: Console",
+  "Intended Audience :: Developers",
+  "Intended Audience :: Information Technology",
+  "Intended Audience :: System Administrators",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "Topic :: Security",
+  "Topic :: Software Development :: Quality Assurance",
+  "Topic :: System :: Software Distribution",
+]
 dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/KhanSaahib/pkgguard"
+Issues = "https://github.com/KhanSaahib/pkgguard/issues"
+Changelog = "https://github.com/KhanSaahib/pkgguard/blob/main/CHANGELOG.md"
+Security = "https://github.com/KhanSaahib/pkgguard/security/policy"
 
 [project.scripts]
 pkgguard = "pkgguard.cli:main"
+
+[tool.setuptools.dynamic]
+version = { attr = "pkgguard.__version__" }
 
 [tool.setuptools.packages.find]
 where = ["src"]
